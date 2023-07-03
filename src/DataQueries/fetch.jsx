@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 import { Config } from '../Config';
 
 // authenticate the app and returns available Currencies
-const API_KEY = '56eb99e066e5607c542a695420122f22';
+const API_KEY = 'dbd301ab61c39fbec84513eedc182e5f';
 
 export const useAuthenticateFetch = () => {
   const fetchAuthCurrency = async () => {
@@ -37,14 +37,38 @@ export const useAuthenticateFetch = () => {
 };
 
 
-export const useCurrencyValue = (baseCurr, destCurr, baseValue) => {
-  // console.log(baseCurr, destCurr, baseValue, 'values')
-  const fetchCurrency = async () => {
+
+export const useDummyvalue = (baseCurr, destCurr, baseValue) => {
+  const fetchDummy = async () => {
     try {
-      const { data } = await axios.get(`${Config.url.API_URL}convert?access_key=${API_KEY}&from=${baseCurr}&to=${destCurr}&amount=${baseValue}&date=2023-07-3}`);
-      console.log(data, "final value")
+      const { data } = await axios.get(`${Config.url.API_URL}/latest?access_key=${API_KEY}`);
+      // all my conversion logic goes here where i take all my values and manipulate them haha!
+
+      const subObject = data.rates;
+      const keys = Object.keys(subObject);
+
+      let _baseCurr;
+      let _destCurr;
+      //run a for while loop to get both the key and value of each selected currencies i.e base & dest. currencies
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const value = subObject[key];
+        if (key === baseCurr) {
+          _baseCurr = value;
+        }
+      }
+      let j = 0;
+      while (j < keys.length) {
+        const key = keys[j];
+        const value = subObject[key];
+        if (key === destCurr) {
+          _destCurr = value;
+        }
+        j++;
+      }
+      const conversionRate = baseValue * _destCurr / _baseCurr ;
       return {
-        data
+        conversionRate
       };
     } catch (error) {
       console.log(error, 'erorrrrrr')
@@ -56,7 +80,7 @@ export const useCurrencyValue = (baseCurr, destCurr, baseValue) => {
 
   const { status, data, isFetching } = useQuery(
     ['Currency', baseCurr, destCurr, baseValue],
-    () => fetchCurrency(),
+    () => fetchDummy(),
     {
       keepPreviousData: true,
       refetchOnWindowFocus: true,
