@@ -12,9 +12,7 @@ import { Config } from '../Config';
 // authenticate the app and returns available Currencies
 
 const API_KEY = 'eaf8833ae84fb086eaa79797e568d780';
-
 // Uncomment for some spare api keys ;
-
 // const API_KEY = 'cb118a85f2fc350970c7c6edd541bffa';
 // const API_KEY = '2c21d59490cd95903b1e12c8c798c9bc';
 
