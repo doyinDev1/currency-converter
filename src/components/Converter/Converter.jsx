@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
@@ -8,23 +9,16 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { toast } from 'react-hot-toast';
 import { useAuthenticateFetch, useDummyvalue } from '../../DataQueries/fetch';
 import classes from './Converter.module.css';
-
-// validation for form goes here
-
-// const validationSchema = yup.object().shape({
-//   baseValue: yup.required("Required"),
-// });
 
 function Converter() {
   const [destinationCurrency, setDestinationCurrency] = useState('');
   const [baseCurr, setBaseCurr] = useState('');
   const [destCurr, setDestCurr] = useState('');
   const [baseValue, setBaseValue] = useState(Number);
-  const [numberErr, setNumberErr] = useState(false);
 
-  // handling of authentication and fetched currency goes here
   const {
     status: allDataStatus,
     data: allData,
@@ -35,7 +29,7 @@ function Converter() {
     data: dummyvalue,
     isFetching: dummyFetching,
     status: dummyValueStatus,
-  } = useDummyvalue(baseCurr, destCurr, baseValue)
+  } = useDummyvalue(baseCurr, destCurr, baseValue);
   // handling of form inputs goes here
   const {
     register,
@@ -43,30 +37,26 @@ function Converter() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-
     try {
       setBaseCurr(data.baseCurr);
       setDestCurr(data.destCurr);
       setBaseValue(data.baseValue);
     } catch (error) {
-      console.error('An error occurred:', error);
-      // Handle the error as needed
+      toast.error('error occured on submitting your details');
     }
-
   };
-  console.log(errors, 'form errors')
 
   // render the destination currency only if the value changes
   useEffect(() => {
     if (dummyvalue) {
       // shorten value to 2 decimal places
-      setDestinationCurrency(`${dummyvalue?.conversionRate?.toFixed(2)}`)
+      setDestinationCurrency(`${dummyvalue?.conversionRate?.toFixed(2)}`);
     }
-  }, [dummyvalue])
+  }, [dummyvalue]);
 
   return (
-    <section id="converter">
-      <div className={classes.converter}>
+    <main id="converter" data-testid="converter">
+      <section id="converter-card" className={classes.converter}>
         <div className={classes.converter_container}>
           <h1 className={classes.container_header}>Converter</h1>
           <Form
@@ -74,10 +64,14 @@ function Converter() {
           >
             <div className={classes.container_form_field}>
               <label htmlFor="from">Base Currency</label>
-              <Form.Select defaultValue={'EUR'} size="md" {...register('baseCurr', {
-                required: true,
-                message: "error for base message"
-              })}>
+              <Form.Select
+                defaultValue="EUR"
+                size="md"
+                {...register('baseCurr', {
+                  required: true,
+                  message: 'error for base message',
+                })}
+              >
                 <option disabled>EUR</option>
                 {allData?.data?.map((list, index) => (
                   <option key={index}>{list}</option>
@@ -86,7 +80,7 @@ function Converter() {
             </div>
             <div className={classes.container_form_field}>
               <label htmlFor="from">Destination Currency </label>
-              <Form.Select defaultValue={'EUR'} size="md" {...register('destCurr', { required: true })}>
+              <Form.Select defaultValue="EUR" size="md" {...register('destCurr', { required: true })}>
                 <option disabled>EUR</option>
                 {allData?.data?.map((list, index) => (
                   <option key={index}>{list}</option>
@@ -97,19 +91,20 @@ function Converter() {
               <>
                 <label htmlFor="from">Base Value</label>
                 <Form.Control
-                  name='baseValue'
+                  name="baseValue"
                   type="number"
                   placeholder="Base Input"
                   size="md"
                   min={0}
                   // max={12}
-                  {...register('baseValue',
-                   {
-                    maxLength: {
-                      value: 10,
-                      message: "must be less than 11 digits"
+                  {...register(
+                    'baseValue',
+                    {
+                      maxLength: {
+                        value: 10,
+                        message: 'must be less than 11 digits',
+                      },
                     },
-                  },
                   )}
                 />
               </>
@@ -127,14 +122,14 @@ function Converter() {
           </Form>
           <div className={classes.container_submit}>
             {
-              dummyFetching === true ?
-                <Button disabled variant="primary">Loading...</Button> :
-                <Button onClick={handleSubmit(onSubmit)} variant="primary">CONVERT</Button>
+              dummyFetching === true
+                ? <Button disabled variant="primary">Loading...</Button>
+                : <Button onClick={handleSubmit(onSubmit)} variant="primary">CONVERT</Button>
             }
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
 
