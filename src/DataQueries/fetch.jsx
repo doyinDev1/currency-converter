@@ -4,9 +4,21 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { Config } from '../Config';
+import toast from 'react-hot-toast';
 
 // authenticate the app and returns available Currencies
-const API_KEY = 'dbd301ab61c39fbec84513eedc182e5f';
+
+const API_KEY = 'bb46eec954ba30232c0af3f85e12e7ab';
+
+// Uncomment for some spare api keys 
+
+// const API_KEY = 'eaf8833ae84fb086eaa79797e568d780';
+// const API_KEY = 'cb118a85f2fc350970c7c6edd541bffa';
+// const API_KEY = '2c21d59490cd95903b1e12c8c798c9bc';
+
+
+
+
 
 export const useAuthenticateFetch = () => {
   const fetchAuthCurrency = async () => {
@@ -17,12 +29,18 @@ export const useAuthenticateFetch = () => {
         data: rateKeys,
       };
     } catch (error) {
-      console.log(error, 'error');
-      return {
-        errorResponse: error.response && error.response.data.message
-          ? error.error.info
-          : error.error.type,
-      };
+      console.log({ error })
+      let { message } = error;
+      // Throwing this error here because after 100 API calls it refuses to fetch 
+      if (message == 'Cannot convert undefined or null to object') {
+        toast.error('Rate limit exceeded')
+      }
+      // throwing this error to check for network errors like disconnected internet
+      if (error.message == 'Network Error') {
+        toast.error('Network Error')
+        console.log({ error })
+      }
+      return error;
     }
   };
   const { status, data, isFetching } = useQuery(
@@ -30,23 +48,20 @@ export const useAuthenticateFetch = () => {
     () => fetchAuthCurrency(),
     {
       keepPreviousData: true,
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false,
     },
   );
   return { status, data, isFetching };
 };
 
 
-
 export const useDummyvalue = (baseCurr, destCurr, baseValue) => {
   const fetchDummy = async () => {
     try {
       const { data } = await axios.get(`${Config.url.API_URL}/latest?access_key=${API_KEY}`);
-      // all my conversion logic goes here where i take all my values and manipulate them haha!
-
+      // all the conversion logic goes here where we take all the values and calculate
       const subObject = data.rates;
       const keys = Object.keys(subObject);
-
       let _baseCurr;
       let _destCurr;
       //run a for while loop to get both the key and value of each selected currencies i.e base & dest. currencies
@@ -66,12 +81,11 @@ export const useDummyvalue = (baseCurr, destCurr, baseValue) => {
         }
         j++;
       }
-      const conversionRate = baseValue * _destCurr / _baseCurr ;
+      const conversionRate = baseValue * _destCurr / _baseCurr;
       return {
         conversionRate
       };
     } catch (error) {
-      console.log(error, 'erorrrrrr')
       return {
         error
       };
@@ -83,7 +97,7 @@ export const useDummyvalue = (baseCurr, destCurr, baseValue) => {
     () => fetchDummy(),
     {
       keepPreviousData: true,
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false,
     }
   );
 

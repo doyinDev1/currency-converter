@@ -5,7 +5,6 @@
   justify-content: center;
   min-height: 100vh;
   position: relative;
-
 }
 
 .converter_container {
@@ -25,6 +24,9 @@
   color: #356;
   margin-bottom: 5rem;
   text-align: center;
+  font-family: "IBMBold";
+  font-size: 2.5rem;
+
 }
 .container_header h1 {
   display: block;
@@ -50,16 +52,30 @@
   flex-direction: column;
   margin-bottom: 2rem;
 }
-
+.span{
+  margin-bottom: -16px;
+  color: red;
+  font-size: 13px;
+  margin-left: 0px;
+}
+.span2{
+  margin-bottom: -30px;
+  padding-top: 14px;
+  color: red;
+  font-size: 13px;
+  margin-left: 0px;
+}
 .container_submit {
   display: grid;
   grid-template-columns: repeat(21, 1fr);
 }
+
 .container_submit button {
   grid-column-start: 19;
 }
+
 label {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -79,35 +95,34 @@ label {
   label {
     width: calc(200px + 5vw);
   }
+
   .container_form_field {
     width: calc(195px + 5vw);
   }
-  
+
   .container_submit button {
     grid-column-start: 11;
   }
 }
 
 @media only screen and (max-width: 414px) {
+  .converter_container {
+    width: 80%;
+    padding-bottom: 1.5rem;
+  }
 
-    .converter_container {
-        width: 80%;
-        padding-bottom: 1.5rem;
-    }
-    .container_form {
-        justify-content: space-evenly;
-    }
-    .container_submit button {
-        grid-column-start: 11;
-      }
-     
+  .container_form {
+    justify-content: space-evenly;
+  }
+
+  .container_submit button {
+    grid-column-start: 11;
+  }
 }
 
-
 @media only screen and (max-width: 280px) {
-
-    .converter_container {
-        width: 92%;
-        padding-bottom: 1.5rem;
-    }
+  .converter_container {
+    width: 92%;
+    padding-bottom: 1.5rem;
+  }
 }
