@@ -27,7 +27,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Testing
 
-1. Test the app : `npm start`
+1. Test the app : `npm test`
 
 ## Contributions
 
