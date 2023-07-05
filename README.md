@@ -25,6 +25,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 3. Install the dependencies: `npm install`
 4. Start the development server: `npm start`
 
+## Testing
+
+1. Test the app : `npm start`
+
 ## Contributions
 
 Contributions are welcome! If you find any issues or want to add new features, please follow these steps:

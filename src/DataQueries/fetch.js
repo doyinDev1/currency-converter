@@ -1,21 +1,20 @@
 /* eslint-disable no-mixed-operators */
 /* eslint-disable no-plusplus */
 /* eslint-disable eqeqeq */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
-import axios from 'axios';
 import { useQuery } from 'react-query';
+import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Config } from '../Config';
 
-// authenticate the app and returns available Currencies
-
-const API_KEY = 'eaf8833ae84fb086eaa79797e568d780';
+const API_KEY = '5692359bbc7aec7001a1d5a2d1b08772';
 // Uncomment for some spare api keys ;
-// const API_KEY = 'cb118a85f2fc350970c7c6edd541bffa';
-// const API_KEY = '2c21d59490cd95903b1e12c8c798c9bc';
+// const API_KEY = '89044da3c38f6a3635a94c8e1a25dfe2';
+// const API_KEY = 'daeb659cc3cce3c0b605bfeddb8a7bfc';
+// const API_KEY = '5a4ab6aba289a123588bcd3493aabee0';
+// const API_KEY = '52819e819457daefea0b7eef0c6e7294';
 
+// authenticate the app and returns available Currencies
 export const useAuthenticateFetch = () => {
   const fetchAuthCurrency = async () => {
     try {
