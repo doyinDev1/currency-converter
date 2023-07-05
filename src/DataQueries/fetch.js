@@ -24,7 +24,6 @@ export const useAuthenticateFetch = () => {
         data: rateKeys,
       };
     } catch (error) {
-      // console.log({ error });
       const { message } = error;
       // Throwing this error here because after 100 API calls it refuses to fetch ;
       if (message == 'Cannot convert undefined or null to object') {
@@ -33,7 +32,6 @@ export const useAuthenticateFetch = () => {
       // throwing this error to check for network errors like disconnected internet
       if (error.message == 'Network Error') {
         toast.error('Network Error');
-        // console.log({ error });
       }
       return error;
     }
