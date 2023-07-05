@@ -2,8 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-extraneous-dependencies */
+
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -63,10 +62,11 @@ function Converter() {
             className={classes.container_form}
           >
             <div className={classes.container_form_field}>
-              <label htmlFor="from">Base Currency</label>
+              <label htmlFor="Base Currency">Base Currency</label>
               <Form.Select
                 defaultValue="EUR"
                 size="md"
+                id="Base Currency"
                 {...register('baseCurr', {
                   required: true,
                   message: 'error for base message',
@@ -79,8 +79,8 @@ function Converter() {
               </Form.Select>
             </div>
             <div className={classes.container_form_field}>
-              <label htmlFor="from">Destination Currency </label>
-              <Form.Select defaultValue="EUR" size="md" {...register('destCurr', { required: true })}>
+              <label htmlFor="Destination Currency">Destination Currency</label>
+              <Form.Select defaultValue="EUR" id="Destination Currency" size="md" {...register('destCurr', { required: true })}>
                 <option disabled>EUR</option>
                 {allData?.data?.map((list, index) => (
                   <option key={index}>{list}</option>
@@ -96,7 +96,6 @@ function Converter() {
                   placeholder="Base Input"
                   size="md"
                   min={0}
-                  // max={12}
                   {...register(
                     'baseValue',
                     {
@@ -111,9 +110,10 @@ function Converter() {
               {errors.baseValue && <h6 className={classes.span}>{errors.baseValue.message}</h6>}
             </div>
             <div className={classes.container_form_field}>
-              <label htmlFor="from">Destination Value </label>
+              <label htmlFor="Destination Value">Destination Value </label>
               <Form.Control
                 type="number"
+                id="Destination Value"
                 disabled
                 value={destinationCurrency == 'NaN' ? '0' : destinationCurrency}
                 size="md"
