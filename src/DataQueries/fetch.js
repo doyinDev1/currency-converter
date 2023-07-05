@@ -7,11 +7,12 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Config } from '../Config';
 
+const API_KEY = '5692359bbc7aec7001a1d5a2d1b08772';
 // Uncomment for some spare api keys ;
-const API_KEY = '5a4ab6aba289a123588bcd3493aabee0';
-// const API_KEY = '5692359bbc7aec7001a1d5a2d1b08772';
 // const API_KEY = '89044da3c38f6a3635a94c8e1a25dfe2';
 // const API_KEY = 'daeb659cc3cce3c0b605bfeddb8a7bfc';
+// const API_KEY = '5a4ab6aba289a123588bcd3493aabee0';
+// const API_KEY = '52819e819457daefea0b7eef0c6e7294';
 
 // authenticate the app and returns available Currencies
 export const useAuthenticateFetch = () => {

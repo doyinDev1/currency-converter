@@ -1,13 +1,16 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
+// const axios = require('axios');
+
 import { Config } from '../Config';
 
-// SWAP API_KEY WITH THE FOLLOWING KEYS INCASE OF RATE LMIT EXCEEDED ERROR /TESTS FAILS REPEATEDLY
+const API_KEY = '5692359bbc7aec7001a1d5a2d1b08772';
+//  API_KEY WITH THE FOLLOWING KEYS INCASE OF RATE LMIT EXCEEDED ERROR /TESTS FAILS REPEATEDLY
 
-const API_KEY = '5a4ab6aba289a123588bcd3493aabee0';
-// const API_KEY = '5692359bbc7aec7001a1d5a2d1b08772';
 // const API_KEY = '89044da3c38f6a3635a94c8e1a25dfe2';
 // const API_KEY = 'daeb659cc3cce3c0b605bfeddb8a7bfc';
+// const API_KEY = '5a4ab6aba289a123588bcd3493aabee0';
+// const API_KEY = '52819e819457daefea0b7eef0c6e7294';
 
 // handling my date functions here to mock data
 const currentDate = new Date();

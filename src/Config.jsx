@@ -1,8 +1,7 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/prefer-default-export */
 const prod = {
-  url: {
-    API_URL: 'http://data.fixer.io/api',
-  },
+  url: { API_URL: 'http://data.fixer.io/api' },
 };
 const dev = {
   url: {
@@ -10,5 +9,4 @@ const dev = {
   },
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const Config = process.env.NODE_ENV === 'development' ? dev : prod;
